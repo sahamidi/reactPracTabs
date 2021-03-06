@@ -6,7 +6,7 @@ const url = 'https://course-api.com/react-tabs-project'
 function App() {
   let [loading, setLoading] = useState(true)
   let [jobs, setJobs] = useState([])
-  let [value, setValue] = useState(0)
+  let [value, setValue] = useState(1)
 
   let fetchJobs = async () => {
     let response = await fetch(url)
@@ -32,8 +32,38 @@ function App() {
   return (
     <section className='section'>
       <div className='title'>
-        <h2>experience </h2>
+        <h2>experience</h2>
         <div className='underline'></div>
+      </div>
+      <div className='jobs-center'>
+        {/* btn container> */}
+        <div className='btn-container'>
+          {jobs.map((item, index) => {
+            return (
+              <button
+                key={item.id}
+                onClick={() => setValue(index)}
+                className={`job-btn ${index === value && 'active-btn'}`}
+              >
+                {item.company}
+              </button>
+            )
+          })}
+        </div>
+        {/*job info*/}
+        <article className='job-info'>
+          <h3>{title}</h3>
+          <h4>{company}</h4>
+          <p className='job-date'>{dates}</p>
+          {duties.map((duty, index) => {
+            return (
+              <div key={index} className='job-desc'>
+                <FaAngleDoubleRight className='job-icon'></FaAngleDoubleRight>
+                <p>{duty}</p>
+              </div>
+            )
+          })}
+        </article>
       </div>
     </section>
   )
